@@ -24,35 +24,22 @@ axios
     .get('https://lambda-times-backend.herokuapp.com/articles')
     .then((result) => {
         // console.log(result);
-        // console.log(result.data);
+        console.log(result.data);
         console.log(result.data.articles);
-        const articleTops = result.data.articles;
-        // const articleKeys = Object.keys(result.data.articles)
-        // console.log(articleKeys);
+        const articleKeysArr = Object.keys(result.data.articles);
+        console.log(articleKeysArr);
+       
 
-        // articleKeys.forEach(element =>{
-        //     result.data.articles.element.forEach(ele=>{
-        //         cardContainer.appendChild(cardMaker(ele))
-        //     })
-        // })
-
-        articleTops.javascript.forEach(element => {
-            cardContainer.appendChild(cardMaker(element));
-        });
-        articleTops.bootstrap.forEach(element => {
-            cardContainer.appendChild(cardMaker(element));
-        });
-        articleTops.technology.forEach(element => {
-            cardContainer.appendChild(cardMaker(element));
-        });
-        articleTops.jquery.forEach(element => {
-            cardContainer.appendChild(cardMaker(element));
-        });
-        articleTops.node.forEach(element => {
-            cardContainer.appendChild(cardMaker(element));
-        });
-
-    })
+        Object.keys(result.data.articles).forEach(key =>{
+            const articlesByKey = result.data.articles[key]
+            console.log(key,articlesByKey);
+            articlesByKey.forEach(item =>{
+                cardContainer.appendChild(cardMaker(item))
+            })
+        })
+        
+        })
+ 
     
     .catch((err) => {
         console.log('Error:',err);
