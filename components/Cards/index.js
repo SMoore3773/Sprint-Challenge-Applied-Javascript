@@ -17,3 +17,70 @@
 // </div>
 //
 // Create a card for each of the articles and add the card to the DOM.
+
+const cardContainer = document.querySelector('.cards-container');
+
+axios
+    .get('https://lambda-times-backend.herokuapp.com/articles')
+    .then((result) => {
+        // console.log(result);
+        // console.log(result.data);
+        console.log(result.data.articles);
+        const articleTops = result.data.articles;
+        // const articleKeys = Object.keys(result.data.articles)
+        // console.log(articleKeys);
+
+        // articleKeys.forEach(element =>{
+        //     result.data.articles.element.forEach(ele=>{
+        //         cardContainer.appendChild(cardMaker(ele))
+        //     })
+        // })
+
+        articleTops.javascript.forEach(element => {
+            cardContainer.appendChild(cardMaker(element));
+        });
+        articleTops.bootstrap.forEach(element => {
+            cardContainer.appendChild(cardMaker(element));
+        });
+        articleTops.technology.forEach(element => {
+            cardContainer.appendChild(cardMaker(element));
+        });
+        articleTops.jquery.forEach(element => {
+            cardContainer.appendChild(cardMaker(element));
+        });
+        articleTops.node.forEach(element => {
+            cardContainer.appendChild(cardMaker(element));
+        });
+
+    })
+    
+    .catch((err) => {
+        console.log('Error:',err);
+    });
+
+function cardMaker(cardSrc) {
+
+    const card = document.createElement('div');
+    const headline = document.createElement('div');
+    const authorCont = document.createElement('div');
+    const imgCont = document.createElement('div');
+    const img = document.createElement('img');
+    const author = document.createElement('span');
+
+    card.appendChild(headline);
+    card.appendChild(authorCont);
+    authorCont.appendChild(imgCont);
+    imgCont.appendChild(img);
+    authorCont.appendChild(author);
+
+    card.classList.add('card');
+    headline.classList.add('headline');
+    authorCont.classList.add('author');
+    imgCont.classList.add('img-container');
+
+    headline.textContent = cardSrc.headline;
+    img.src = cardSrc.authorPhoto;
+    author.textContent = cardSrc.authorName;
+    
+    return card;
+}
